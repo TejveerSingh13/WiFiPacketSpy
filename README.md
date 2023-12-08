@@ -1,3 +1,32 @@
 # WiFiPacketSpy
 ## WiFiPacketSpy: A Social Attack Model     
 This repository presents a novel social attack model leveraging vulnerabilities in IEEE 802.11 WiFi packets. By utilizing a NIC in monitor mode, encrypted packets can be captured, revealing valuable information through their leaking features. Explore the intricacies of this cybersecurity project designed to expose potential risks associated with wireless communication.
+
+#### This project was a part of CSCI - 5930 Machine learning.
+
+## Project Overview   
+Delve into the realm of advanced cybersecurity with our cutting-edge project on Website Fingerprinting. Unlike traditional attacks within local networks, our innovative approach explores the possibilities of an attacker outside the network but within a wide-area network (WAN). We aim to determine if an external attacker can capture encrypted packets and extract leaking features or any information about the packet.    
+
+## Setup
+Empowered by an ALFA Networks WiFi adapter and a Kali Linux system, our project leverages the capabilities of a NIC card in monitor mode. This unique setup allows the attacker to collect packets without being a part of the LAN, presenting an unprecedented avenue for potential threats.    
+To enable our ALFA Networks WiFi adapter for optimal performance in our cybersecurity project, we initiate a straightforward installation process. Begin by downloading the appropriate driver from the official ALFA Networks website, following the provided instructions for a seamless installation. Once the driver is successfully installed and the adapter is recognized by your system, proceed to the next steps.    
+In the Kali Linux environment, we employ the powerful **airmon-ng** tool to transition the ALFA adapter into monitor mode. Open the terminal, ensure you have the necessary tools by running `sudo apt-get install aircrack-ng`, and then list the available network interfaces using `iwconfig`. Temporarily disable networking services with `sudo systemctl stop NetworkManager` and `sudo systemctl disable NetworkManager`. Now, execute `sudo airmon-ng start wlan0` to activate monitor mode on the ALFA adapter. Confirm the switch by checking the interfaces again with `iwconfig`, where you'll observe the creation of a new monitor interface.
+
+## Data Collection
+At the heart of our Machine Learning model lies the crucial aspect of data quality. To curate a robust dataset, we meticulously crafted a Python automation script tailored for effective packet capture using TCP dump. This script goes beyond mere packet collection; it orchestrates a simulated user interaction with target websites, strategically capturing packets during specific interactions. Our selection of prominent websites, including Google, Amazon, Wikipedia, YouTube, and Yahoo, ensures a diverse and complex dataset, enriching the training material for our model.   
+The script emulates user behavior by initiating packet capture as the browser loads the target website, searches for a query in the search bar, and awaits the results. This intelligent approach not only captures the raw packets but also focuses on the intricacies of network interactions, providing a nuanced dataset that mirrors real-world usage scenarios.    
+
+## Data Analysis
+In our meticulous data analysis, Wireshark and tshark are pivotal for transforming raw data into a structured CSV format, focusing on key features like MAC addresses, packet size, and timestamp. Leveraging knowledge of system and router MAC addresses, we extract relevant packets, crafting a targeted dataset.   
+The refined approach involves filtering out extraneous packets (e.g., beacons, ARP requests) via tshark commands, ensuring a streamlined dataset for cybersecurity exploration. Two critical temporal features, time interval and time increment, are introduced based on consecutive packet timestamps.    
+Transitioning to the Exploratory Data Analysis (EDA) phase, we leverage pandas, matplotlib, and seaborn to unveil intricate relationships through joint plots and scatter plots. Emphasizing the importance of time interval and time increment, this visual exploration guides our nuanced understanding of dataset patterns. Notably, during the analysis, we identified numerous zeros in the time interval, a factor that could detrimentally affect the model's performance. In response, we strategically decided to exclude time interval from further analysis, showcasing our commitment to refining the dataset for optimal model training. This thoughtful approach ensures that our Machine Learning model is not only structured but also tailored to avoid potential pitfalls, positioning it for sophisticated analysis and accurate website classification.
+
+## Model Training
+After meticulous dataset sanitization and addressing concerns related to time intervals, we carefully split the data into test and train sets. The features (X) considered for training our model include **packet size** and **time increment**, crucial variables identified during the exploratory data analysis. Simultaneously, we assign **labels** (y) to the dataset, indicating the corresponding websites.    
+Utilizing Random Forest and AdaBoost classifiers, we initiate cross-validation to optimize model parameters, ensuring robust performance. The outcome is striking—an impressive **91% accuracy**. This remarkable precision underscores the model's capability to glean profound insights for website classification based on packet characteristics. The strategic inclusion of specific features and the accurate labeling of data contribute to the success of our model, positioning it as a potent tool in the cybersecurity landscape.   
+
+## Contribution
+We invite contributors to explore the Filtered Data and dive into the intricacies of our project. Additionally, the Python scripts used for data collection, destructure, and cleaning are available in the scripts directory. To understand the step-by-step process, check out the Jupyter Notebook provided in the repository.   
+
+## Conclusion and Future Work
+Our project's implications extend beyond passive packet capture. By providing the model with a stream of packets between a router and a system, we unlock the potential for predicting the probability of a packet belonging to a specific site. This opens avenues for more strategic and planned attacks, paving the way for future advancements in cybersecurity.    
